@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import cockpit from 'cockpit';
+import { Card, CardBody, CardFooter, CardTitle } from '@patternfly/react-core';
 import ValidateRule from './validity';
 
 function InsertRulesAt({pathToFile}) {
@@ -19,14 +20,20 @@ function InsertRulesAt({pathToFile}) {
   };
 
   return (
-    <div>
-      <h2>Insert a rule at a particular position</h2>
-      <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
-      <input type="text" value={position} onChange={(e) => setPosition(e.target.value)} />
-      <button onClick={handleInsertRulesAt}>Add rules at</button>
-      <ValidateRule rule={text} />
-      <p>{statusMessage}</p>
-    </div>
+    <Card>
+      <CardTitle>Insert rule at a particular position</CardTitle>
+      <CardBody>
+        <p>Rule :</p>
+        <input type="text" value={text} onChange={(e) => setText(e.target.value)} style={{ marginBottom: '10px' }}/>
+        <p>Position :</p>
+        <input type="text" value={position} onChange={(e) => setPosition(e.target.value)} style={{ marginRight: '10px' }}/>
+        <button onClick={handleInsertRulesAt}>Add rules at</button>
+        <p>{statusMessage}</p>
+      </CardBody>
+      <CardFooter>
+        <ValidateRule rule={text}/>
+      </CardFooter>
+    </Card>
   );
 }
 

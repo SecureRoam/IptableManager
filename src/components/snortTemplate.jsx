@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import cockpit from 'cockpit';
 import { Card, CardBody, CardTitle, Button} from '@patternfly/react-core';
-import { Table, Thead, Tbody, TableVariant, Tr, Th } from '@patternfly/react-table';
+import { Table, Thead, Tbody, TableVariant, Tr, Th, Td } from '@patternfly/react-table';
 
-
-function IptablesTemplate({pathToFile}) {
+function SnortTemplate({pathToFile}) {
     const [lines, setLines] = useState([]);
 
     useEffect(() => {
         cockpit.file(pathToFile).read().then(data => {
-        const linesData = data.trim().split('\n');
+        const linesData = data.trim().split('\n').filter(line => line !== '');
         const linesWithPosition = linesData.map((line, index) => ({ line, position: index + 1 }));
         setLines(linesWithPosition);
         }).catch(error => {
@@ -19,24 +18,20 @@ function IptablesTemplate({pathToFile}) {
 
     return (
         <Card>
-          <CardTitle>Current Iptables rules</CardTitle>
+            <CardTitle>Logs</CardTitle>
           <CardBody>
-            <Table variant={TableVariant.compact} aria-label="Iptables Rules">
+            <Table variant={TableVariant.compact} aria-label="Snort Logs">
               <Thead>
                 <Tr>
-                  <Th>Number</Th>
-                  <Th>Line</Th>
-                  <Th/>
+                  <Td>Number</Td>
+                  <Td>Line</Td>
                 </Tr>
               </Thead>
               <Tbody>
                 {lines.map((line) => (
                   <Tr key={line.position}>
-                    <Th>{line.position}</Th>
-                    <Th>{line.line}</Th>
-                    <Th>
-                      <Button variant="secondary" onClick={() => handleButtonClick(line.position)}>Remove</Button>
-                    </Th>
+                    <Td>{line.position}</Td>
+                    <Td>{line.line}</Td>
                   </Tr>
                 ))}
               </Tbody>
@@ -44,8 +39,7 @@ function IptablesTemplate({pathToFile}) {
           </CardBody>
         </Card>
       );
-      
 }
 
 
-export default IptablesTemplate;
+export default SnortTemplate;

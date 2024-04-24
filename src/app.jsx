@@ -24,6 +24,9 @@ import { Alert, Button, Form, FormGroup, TextInput, Card, CardBody, CardTitle } 
 import IptablesTemplate from './components/iptableTemplate';
 import InsertRulesAt from './components/insertRulesAt';
 import ValidateRule from './components/validity';
+import SnortTemplate from './components/snortTemplate';
+import ResetIptables from './components/iptableBackup';
+import './app.scss';
 
 const _ = cockpit.gettext;
 
@@ -54,23 +57,22 @@ export class Application extends React.Component {
             return <div>Loading...</div>;
           }
         return (
-            <div>
+            <div className='App'>
                 <Card>
-                    <CardTitle>Iptables</CardTitle>
+                    <CardTitle>Snort :</CardTitle>
                     <CardBody>
-                        <Alert
-                            variant="info"
-                            title={ cockpit.format(_("File content: $0"), this.state.fileContent) }
-                        />
+                        <SnortTemplate pathToFile="/var/log/snort.log"/>  
                     </CardBody>
                 </Card>
-                <div>
-                    <ValidateRule/>
-                    <AddRules pathToFile="/etc/iptables.config" />
-                    <InsertRulesAt pathToFile="/etc/iptables.config"/>
-                    <IptablesTemplate pathToFile="/etc/iptables.config"/>
-                    
-                </div>
+                <Card>
+                    <CardTitle>Iptables :</CardTitle>
+                    <CardBody>
+                        <AddRules pathToFile="/etc/iptables.config" />
+                        <InsertRulesAt pathToFile="/etc/iptables.config"/>
+                        <IptablesTemplate pathToFile="/etc/iptables.config"/>
+                        <ResetIptables backupPath="/etc/baackupiptables" rulesPath="/etc/iptables.config"/>  
+                    </CardBody>
+                </Card>      
             </div>
         );
     }

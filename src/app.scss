@@ -3,3 +3,8 @@
 p {
     font-weight: bold;
 }
+
+.App {
+    max-height: 100vh; /* Ajustez cette valeur selon vos besoins */
+    overflow-y: auto; /* Activez le défilement vertical */
+  }
