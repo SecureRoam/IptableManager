@@ -10,7 +10,9 @@ function IptablesTemplate({pathToFile}) {
     useEffect(() => {
         cockpit.file(pathToFile).read().then(data => {
         const linesData = data.trim().split('\n');
-        const linesWithPosition = linesData.map((line, index) => ({ line, position: index + 1 }));
+        const linesWithPosition = linesData
+	.filter(line => line.trim().startsWith('iptables'))
+	.map((line, index) => ({ line, position: index + 1 }));
         setLines(linesWithPosition);
         }).catch(error => {
         console.log(`Error reading file: ${error}`);

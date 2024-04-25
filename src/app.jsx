@@ -39,7 +39,7 @@ export class Application extends React.Component {
             loading: true
         };
 
-        cockpit.file('/etc/iptables.config').read().then(content => {
+        cockpit.file('/etc/network/if-pre-up.d/iptables.sh').read().then(content => {
             this.setState({ fileContent: content, loading: false})
             
         }).catch(error => {
@@ -61,16 +61,18 @@ export class Application extends React.Component {
                 <Card>
                     <CardTitle>Snort :</CardTitle>
                     <CardBody>
-                        <SnortTemplate pathToFile="/var/log/snort.log"/>  
+                        <div className='Snort'>
+			    <SnortTemplate pathToFile="/home/secureroamcompanion/snort.log"/>
+			</div>  
                     </CardBody>
                 </Card>
                 <Card>
                     <CardTitle>Iptables :</CardTitle>
                     <CardBody>
-                        <AddRules pathToFile="/etc/iptables.config" />
-                        <InsertRulesAt pathToFile="/etc/iptables.config"/>
-                        <IptablesTemplate pathToFile="/etc/iptables.config"/>
-                        <ResetIptables backupPath="/etc/baackupiptables" rulesPath="/etc/iptables.config"/>  
+                        <AddRules pathToFile="/etc/network/if-pre-up.d/iptables.sh" />
+                        <InsertRulesAt pathToFile="/etc/network/if-pre-up.d/iptables.sh"/>
+                        <IptablesTemplate pathToFile="/etc/network/if-pre-up.d/iptables.sh"/>
+                        <ResetIptables backupPath="/etc/iptables.bak" rulesPath="/etc/network/if-pre-up.d/iptables.sh"/>  
                     </CardBody>
                 </Card>      
             </div>
