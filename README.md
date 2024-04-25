@@ -1,4 +1,4 @@
-# Vpn Manager module
+# Iptable Manager module
 
 Scaffolding for a [Cockpit](https://cockpit-project.org/) module.
 
