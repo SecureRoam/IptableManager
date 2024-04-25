@@ -8,7 +8,7 @@ function SnortTemplate({pathToFile}) {
 
     useEffect(() => {
         cockpit.file(pathToFile).read().then(data => {
-        const linesData = data.trim().split('\n').filter(line => line !== '');
+        const linesData = data.trim().split("wlan0")[1].split('\n').filter(line => line !== '');
         const linesWithPosition = linesData.map((line, index) => ({ line, position: index + 1 }));
         setLines(linesWithPosition);
         }).catch(error => {
