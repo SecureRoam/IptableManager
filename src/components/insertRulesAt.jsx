@@ -16,6 +16,7 @@ function InsertRulesAt({pathToFile}) {
       setText('');
     }).catch((error) => {
       setStatusMessage(`Error adding line: ${error.message}`);
+      //setStatusMessage(`Line added successfully at ${position}`);
     });
   };
 
